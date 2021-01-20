@@ -1,17 +1,14 @@
-# Import the required module for text  
-# to speech conversion 
 from gtts import gTTS 
-import winsound
-  
-# This module is imported so that we can  
-# play the converted audio 
-import os 
-  
-# The text that you want to convert to audio 
-with open('../output/test.rtl', 'r', encoding='utf-8') as f:
+import os
+import sys
+
+# The text that you want to convert to audio
+_, input_file, output_file = sys.argv
+
+print(f'Reading from text {input_file}')
+with open(sys.argv[1], 'r', encoding='utf-8') as f:
   mytext = f.read()
-print(mytext)
-  
+
 # Language in which you want to convert 
 language = 'kn'
   
@@ -20,7 +17,6 @@ language = 'kn'
 # the module that the converted audio should  
 # have a high speed 
 myobj = gTTS(text=mytext, lang=language, slow=False) 
-  
+print(f'Saving mp3 file {output_file}')
 # Saving the converted audio in a mp3 file named 
-# welcome  
-myobj.save("../output/text2speech.mp3") 
+myobj.save(sys.argv[2]) 
